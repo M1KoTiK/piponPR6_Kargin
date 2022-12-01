@@ -9,8 +9,6 @@ def process_result(start_string :str, finish_string :str) -> datetime:
     total : datetime = finish - start
     return total
     
-
-
 def main():
     JSON_PATH = r'C:\Users\User\source\reposPython\PR6_Kargin\competitors2.json'
     TXT_PATH = r'C:\Users\User\source\reposPython\PR6_Kargin\results_RUN.txt'  
@@ -19,7 +17,7 @@ def main():
     dict_competitors = json.loads(string_competitors)
     json_competitors.close()
     dict_results = {}
-    txt_results = open(TXT_PATH, 'r')
+    txt_results = open(TXT_PATH, 'r', encoding="UTF-8-SIG")
     while True:
         line_start = txt_results.readline()
         line_finish = txt_results.readline()
@@ -33,15 +31,12 @@ def main():
 
     def sort_sportsman(key: str):
         return dict_results[key].total_seconds()
-    print("Занятое место \t Нагрудный номер \t Имя \t Фамилия \t Результат")
+
+    print(f"{'Занятое место': <16}{'Нагрудный номер': <16}{'Имя': <16}{'Фамилия': <16}Результат")
     i = 1
     for sportsman_number in sorted(dict_results, key = sort_sportsman):
-        print(f"{i} \t {sportsman_number} \t {dict_competitors[sportsman_number]['Name']} \t {dict_competitors[sportsman_number]['Surname']} \t {dict_results[sportsman_number]}")
+        print(f"{i: <16}{sportsman_number: <16}{dict_competitors[sportsman_number]['Surname']: <16}{dict_competitors[sportsman_number]['Name']: <16}{dict_results[sportsman_number]}")
         i +=1
-
-
 
 if __name__ == "__main__":
     main()
-    
-
